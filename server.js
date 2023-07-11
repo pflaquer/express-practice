@@ -2,11 +2,10 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(express.static(__dirname + '/dist'));
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-
+// handle every other route with index.html, which will contain
+// a script tag to your application's JavaScript file(s).
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, 'index.html'));
+});
